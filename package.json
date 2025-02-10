@@ -1,0 +1,18 @@
+{
+  "name": "portofolio",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npx @tailwindcss/cli -i ./src/input.css -o ./dist/style.css --watch",
+    "build":"build && npx @tailwindcss/cli -i ./src/input.css -o ./dist/style.css"
+  },
+  "dependencies": {
+    "@tailwindcss/cli": "^4.0.5",
+    "tailwindcss": "^4.0.5"
+  } 
+}
