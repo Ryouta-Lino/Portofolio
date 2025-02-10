@@ -1,4 +1,93 @@
 @import "tailwindcss";
 @tailwind utilities;
-/* @tailwind components;
-@tailwind base; */
+@tailwind base;
+@tailwind components;
+
+.hamburger-line {
+    @apply w-[30px] h-[2px] my-2 block bg-gray-300;
+}
+
+.hamburger-active > span:nth-child(1) {
+    @apply rotate-45;
+}
+
+.hamburger-active > span:nth-child(2) {
+    @apply scale-0;
+}
+
+.hamburger-active > span:nth-child(3) {
+    @apply -rotate-45;
+}
+
+/* Custom animations */
+@layer utilities {
+    .animate-fade-in {
+        animation: fadeIn 0.5s ease-in-out;
+    }
+    
+    .animate-slide-up {
+        animation: slideUp 0.5s ease-in-out;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Glow effect untuk teks neon */
+.text-glow {
+    text-shadow: 0 0 10px #00FFFF, 0 0 20px #00FFFF, 0 0 30px #00FFFF;
+}
+
+/* Glow effect untuk button */
+.button-glow:hover {
+    box-shadow: 0 0 10px #8A2BE2, 0 0 20px #8A2BE2;
+}
+
+/* Smooth scroll behavior untuk seluruh halaman */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px; /* Sesuaikan dengan tinggi header */
+  }
+}
+
+/* Style untuk active menu item */
+@layer components {
+  .nav-link {
+    @apply relative text-base text-slate-700 py-2 mx-8 flex group-hover:text-teal-500 dark:text-white transition-colors duration-300;
+  }
+
+  .nav-link::after {
+    content: '';
+    @apply absolute left-0 bottom-0 w-0 h-0.5 bg-teal-500 transition-all duration-300;
+  }
+
+  .nav-link:hover::after {
+    @apply w-full;
+  }
+
+  .nav-link.active {
+    @apply text-teal-500;
+  }
+
+  .nav-link.active::after {
+    @apply w-full;
+  }
+}
