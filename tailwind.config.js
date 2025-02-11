@@ -1,10 +1,12 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    './dist/**/*.{html,js}', // Sesuaikan dengan path file Anda
-  ],
+  content: ["./dist/**/*.{html,js}"],
   darkMode: 'class',
   theme: {
+    container: {
+      center: true,
+      padding: '16px',
+    },
     extend: {
       colors: {
         primary: {

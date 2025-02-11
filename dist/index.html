@@ -1,0 +1,40 @@
+<script>
+    adminForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const username = document.querySelector('#username').value;
+        const password = document.querySelector('#password').value;
+
+        if (username === 'admin' && password === 'password') {
+            localStorage.setItem('adminLoggedIn', 'true');
+            alert('Login successful!');
+            // Gunakan path relatif yang benar
+            window.location.href = 'admin-dashboard.html';
+        } else {
+            alert('Invalid credentials');
+        }
+    });
+</script>
+
+<head>
+    <!-- ... other head elements ... -->
+    <link href="style.css" rel="stylesheet">
+    <!-- Tambahkan fallback -->
+    <script>
+        // Check if stylesheet loaded
+        window.onload = function() {
+            const styleSheets = document.styleSheets;
+            let tailwindLoaded = false;
+            
+            for(let i = 0; i < styleSheets.length; i++) {
+                if(styleSheets[i].href && styleSheets[i].href.includes('style.css')) {
+                    tailwindLoaded = true;
+                    break;
+                }
+            }
+            
+            if(!tailwindLoaded) {
+                alert('Warning: Stylesheet not loaded properly. Please refresh the page.');
+            }
+        }
+    </script>
+</head> 

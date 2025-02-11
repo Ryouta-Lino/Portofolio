@@ -34,7 +34,7 @@
           <a href="#" id="statsBtn" class="block py-2 px-4 text-slate-700 dark:text-white hover:bg-teal-500 hover:text-white">
             <i class="fas fa-chart-bar mr-2"></i> Statistics
           </a>
-          <a href="/" class="block py-2 px-4 text-slate-700 dark:text-white hover:bg-teal-500 hover:text-white">
+          <a href="index.html" class="block py-2 px-4 text-slate-700 dark:text-white hover:bg-teal-500 hover:text-white">
             <i class="fas fa-home mr-2"></i> Back to Site
           </a>
         </nav>
@@ -448,7 +448,7 @@
       logoutBtn.addEventListener('click', (e) => {
         e.preventDefault();
         localStorage.removeItem('adminLoggedIn');
-        window.location.href = './index.html';
+        window.location.href = 'index.html';
       });
       
       document.querySelector('nav').appendChild(logoutBtn);
