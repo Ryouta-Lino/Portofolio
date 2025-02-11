@@ -4,9 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="style.css" rel="stylesheet" />
-    <title>Dede Ichsan Revalino | Portfolio</title>
-    <!-- Add Font Awesome for icons -->
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/Asset/icon.jpg">
+    <link rel="shortcut icon" type="image/x-icon" href="/Asset/icon.jpg">
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <title>Dede Ichsan Revalino | Portfolio</title>
   </head>
   <body class="dark:bg-slate-900 transition-colors duration-300">
     <!-- Header Start -->
@@ -75,7 +78,7 @@
             </h2>
             <p class="font-medium text-slate-400 mb-10 leading-relaxed">
               This is the first time create
-              <span class="text-slate-900 font-semibold"
+              <span class="text-slate-300 font-semibold"
                 >fortopolio website</span
               >
             </p>
@@ -118,19 +121,23 @@
             <p class="font-medium text-base text-slate-500 mb-6 lg:text-lg">
               Follow my social media and let's create something amazing together!
             </p>
-            <div class="flex items-center">
-              <!-- Social Media Icons -->
+            <div class="flex items-center justify-center lg:justify-start space-x-4">
+              <!-- Social Media Icons dengan hover effect yang lebih baik -->
               <a href="https://github.com/yourusername" target="_blank" 
-                 class="w-9 h-9 mr-3 rounded-full flex justify-center items-center border border-slate-300 hover:border-teal-500 hover:bg-teal-500 hover:text-white text-slate-300">
-                <i class="fab fa-github"></i>
+                 class="w-10 h-10 rounded-full flex justify-center items-center border-2 border-slate-300 hover:border-accent-blue hover:bg-accent-blue hover:text-white text-slate-300 transition-all duration-300">
+                <i class="fab fa-github text-xl"></i>
               </a>
               <a href="https://linkedin.com/in/yourusername" target="_blank"
-                 class="w-9 h-9 mr-3 rounded-full flex justify-center items-center border border-slate-300 hover:border-teal-500 hover:bg-teal-500 hover:text-white text-slate-300">
-                <i class="fab fa-linkedin-in"></i>
+                 class="w-10 h-10 rounded-full flex justify-center items-center border-2 border-slate-300 hover:border-accent-blue hover:bg-accent-blue hover:text-white text-slate-300 transition-all duration-300">
+                <i class="fab fa-linkedin-in text-xl"></i>
               </a>
               <a href="https://instagram.com/yourusername" target="_blank"
-                 class="w-9 h-9 mr-3 rounded-full flex justify-center items-center border border-slate-300 hover:border-teal-500 hover:bg-teal-500 hover:text-white text-slate-300">
-                <i class="fab fa-instagram"></i>
+                 class="w-10 h-10 rounded-full flex justify-center items-center border-2 border-slate-300 hover:border-accent-blue hover:bg-accent-blue hover:text-white text-slate-300 transition-all duration-300">
+                <i class="fab fa-instagram text-xl"></i>
+              </a>
+              <a href="mailto:Dedeichsan.r@gmail.com"
+                 class="w-10 h-10 rounded-full flex justify-center items-center border-2 border-slate-300 hover:border-accent-blue hover:bg-accent-blue hover:text-white text-slate-300 transition-all duration-300">
+                <i class="fas fa-envelope text-xl"></i>
               </a>
             </div>
           </div>
@@ -279,50 +286,84 @@
           <div class="w-full px-4 mb-12 text-slate-300 font-medium md:w-1/3">
             <h2 class="font-bold text-4xl text-white mb-5">Dede Ichsan</h2>
             <h3 class="font-bold text-2xl mb-2">Contact Me</h3>
-            <p>dedeichsan@email.com</p>
-            <p>Your Address</p>
-            <p>Your City, Country</p>
+            <p class="flex items-center mb-2">
+              <i class="fas fa-envelope mr-2"></i>
+              <a href="mailto:Dedeichsan.r@gmail.com" class="hover:text-accent-blue transition-colors">
+                Dedeichsan.r@gmail.com
+              </a>
+            </p>
+            <p class="flex items-center mb-2">
+              <i class="fas fa-map-marker-alt mr-2"></i>
+              Bandung, Indonesia
+            </p>
           </div>
+          
+          <!-- About Me di Footer -->
           <div class="w-full px-4 mb-12 md:w-1/3">
-            <h3 class="font-semibold text-xl text-white mb-5">Links</h3>
+            <h3 class="font-semibold text-xl text-white mb-5">About Me</h3>
+            <p class="text-slate-300 leading-relaxed">
+              Saya adalah seorang mahasiswa yang passionate dalam pengembangan web dan teknologi.
+              Saat ini sedang fokus mempelajari full-stack development dan selalu antusias untuk
+              belajar hal-hal baru dalam dunia programming.
+            </p>
+          </div>
+
+          <!-- Quick Links -->
+          <div class="w-full px-4 mb-12 md:w-1/3">
+            <h3 class="font-semibold text-xl text-white mb-5">Quick Links</h3>
             <ul class="text-slate-300">
               <li>
-                <a href="#home" class="inline-block text-base hover:text-teal-500 mb-3">Home</a>
+                <a href="#home" class="inline-block text-base hover:text-accent-blue mb-3">
+                  <i class="fas fa-chevron-right mr-2"></i>Home
+                </a>
               </li>
               <li>
-                <a href="#about" class="inline-block text-base hover:text-teal-500 mb-3">About</a>
+                <a href="#about" class="inline-block text-base hover:text-accent-blue mb-3">
+                  <i class="fas fa-chevron-right mr-2"></i>About
+                </a>
               </li>
               <li>
-                <a href="#portfolio" class="inline-block text-base hover:text-teal-500 mb-3">Portfolio</a>
+                <a href="#portfolio" class="inline-block text-base hover:text-accent-blue mb-3">
+                  <i class="fas fa-chevron-right mr-2"></i>Portfolio
+                </a>
               </li>
               <li>
-                <a href="#skills" class="inline-block text-base hover:text-teal-500 mb-3">Skills</a>
+                <a href="#skills" class="inline-block text-base hover:text-accent-blue mb-3">
+                  <i class="fas fa-chevron-right mr-2"></i>Skills
+                </a>
               </li>
               <li>
-                <a href="#contact" class="inline-block text-base hover:text-teal-500 mb-3">Contact</a>
+                <a href="#contact" class="inline-block text-base hover:text-accent-blue mb-3">
+                  <i class="fas fa-chevron-right mr-2"></i>Contact
+                </a>
               </li>
             </ul>
           </div>
         </div>
 
+        <!-- Social Media di Footer -->
         <div class="w-full pt-10 border-t border-slate-700">
-          <div class="flex items-center justify-center mb-5">
-            <!-- Social Media Icons -->
+          <div class="flex items-center justify-center mb-5 space-x-6">
             <a href="https://github.com/yourusername" target="_blank" 
-               class="w-9 h-9 mr-3 rounded-full flex justify-center items-center border border-slate-300 hover:border-teal-500 hover:bg-teal-500 hover:text-white text-slate-300">
-              <i class="fab fa-github"></i>
+               class="w-10 h-10 rounded-full flex justify-center items-center border-2 border-slate-300 hover:border-accent-blue hover:bg-accent-blue hover:text-white text-slate-300 transition-all duration-300">
+              <i class="fab fa-github text-xl"></i>
             </a>
             <a href="https://linkedin.com/in/yourusername" target="_blank"
-               class="w-9 h-9 mr-3 rounded-full flex justify-center items-center border border-slate-300 hover:border-teal-500 hover:bg-teal-500 hover:text-white text-slate-300">
-              <i class="fab fa-linkedin-in"></i>
+               class="w-10 h-10 rounded-full flex justify-center items-center border-2 border-slate-300 hover:border-accent-blue hover:bg-accent-blue hover:text-white text-slate-300 transition-all duration-300">
+              <i class="fab fa-linkedin-in text-xl"></i>
             </a>
             <a href="https://instagram.com/yourusername" target="_blank"
-               class="w-9 h-9 mr-3 rounded-full flex justify-center items-center border border-slate-300 hover:border-teal-500 hover:bg-teal-500 hover:text-white text-slate-300">
-              <i class="fab fa-instagram"></i>
+               class="w-10 h-10 rounded-full flex justify-center items-center border-2 border-slate-300 hover:border-accent-blue hover:bg-accent-blue hover:text-white text-slate-300 transition-all duration-300">
+              <i class="fab fa-instagram text-xl"></i>
+            </a>
+            <a href="mailto:Dedeichsan.r@gmail.com"
+               class="w-10 h-10 rounded-full flex justify-center items-center border-2 border-slate-300 hover:border-accent-blue hover:bg-accent-blue hover:text-white text-slate-300 transition-all duration-300">
+              <i class="fas fa-envelope text-xl"></i>
             </a>
           </div>
-          <p class="font-medium text-xs text-slate-500 text-center">
-            Created with ❤️ by <a href="#" target="_blank" class="font-bold text-teal-500">Dede Ichsan</a>
+          <p class="font-medium text-sm text-slate-500 text-center">
+            Created with ❤️ by <a href="#" class="font-bold text-accent-blue">Dede Ichsan</a>
+            <span class="block mt-2">Copyright © 2024. All rights reserved.</span>
           </p>
         </div>
       </div>
