@@ -1,15 +1,77 @@
 <!DOCTYPE html>
-<html class="scroll-smooth">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="style.css" rel="stylesheet" />
+    <link href="/src/css/style.css" rel="stylesheet">
+    <link rel="style-input" href="/src/input.css">
+    <link rel="style-animation" href="/src/css/animations.css">
+    <link rel="style-base" href="/src/css/base.css">
+    <link rel="style-componen" href="/src/css/components.css">
+    <link rel="style-utilities" href="/src/css/utilities.css">
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/Asset/icon.jpg">
     <link rel="shortcut icon" type="image/x-icon" href="/Asset/icon.jpg">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <title>Dede Ichsan Revalino | Portfolio</title>
+    <script src="/src/js/admin.js"></script>
+    <script type="module" src="/src/js/darkmode.js"></script>
+    <script type="module" src="/src/js/navigation.js"></script>
+    <script type="module" src="/src/js/portfolio.js"></script>
+    <script type="module" src="/src/js/adminDashboard.js"></script>
+    <script>
+        // Check if stylesheet loaded
+        window.onload = function() {
+            const styles = document.styleSheets;
+            let cssLoaded = false;
+            
+            for (const style of styles) {
+                if (style.href && style.href.includes('style.css')) {
+                    cssLoaded = true;
+                    break;
+                }
+            }
+            
+            if(!cssLoaded) {
+                console.error('CSS not loaded!');
+                alert('Warning: Stylesheet failed to load. Please check console for details.');
+            }
+        }
+
+        // Load projects on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const portfolioContainer = document.querySelector('#portfolioProjects');
+            if (portfolioContainer) {
+                const projects = JSON.parse(localStorage.getItem('projects')) || [];
+                const activeProjects = projects.filter(p => p.status === 'active');
+                
+                portfolioContainer.innerHTML = activeProjects.map(project => `
+                    <div class="flex-none w-[280px] md:w-[320px] lg:w-[360px] p-4">
+                        <div class="rounded-md shadow-md overflow-hidden bg-white dark:bg-slate-700 h-full">
+                            <img src="${project.image}" alt="${project.title}" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <h3 class="mb-3 font-semibold text-xl text-slate-900 dark:text-white truncate">
+                                    ${project.title}
+                                </h3>
+                                <p class="font-medium text-base text-slate-500 dark:text-slate-300 mb-4 line-clamp-3">
+                                    ${project.description}
+                                </p>
+                                <p class="font-medium text-sm text-teal-500 mb-4">
+                                    ${project.technologies}
+                                </p>
+                                ${project.url ? `
+                                <a href="${project.url}" target="_blank" 
+                                   class="inline-block font-medium text-sm text-white bg-teal-500 py-2 px-4 rounded-lg hover:opacity-80">
+                                   View Project
+                                </a>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        });
+    </script>
   </head>
   <body class="dark:bg-slate-900 transition-colors duration-300">
     <!-- Header Start -->
@@ -20,18 +82,23 @@
             <a href="#home" class="font-bold text-lg text-teal-500 block py-6">dedeichsan</a>
           </div>
           <div class="flex items-center px-4">
-            <!-- Dark mode toggle -->
-            <button id="darkToggle" class="w-12 h-12 flex items-center justify-center mr-4">
-              <i class="fas fa-moon text-slate-800 dark:text-white text-lg"></i>
+            <!-- Dark mode toggle dengan margin yang disesuaikan -->
+            <button id="darkToggle" class="w-12 h-12 flex items-center justify-center mr-2 lg:mr-4">
+                <i class="fas fa-moon text-slate-800 dark:text-white text-lg"></i>
             </button>
             
-            <button id="hamburger" name="hamburger" type="button" class="block absolute right-4 lg:hidden">
-              <span class="hamburger-line transition duration-300 ease-in-out origin-top-left"></span>
-              <span class="hamburger-line transition duration-300 ease-in-out"></span>
-              <span class="hamburger-line transition duration-300 ease-in-out origin-bottom-left"></span>
+            <!-- Hamburger button -->
+            <button id="hamburger" name="hamburger" type="button" 
+                    class="block absolute right-4 lg:hidden">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
             </button>
             
-            <nav id="nav-menu" class="hidden absolute py-5 bg-white shadow-lg rounded-lg max-w-[250px] w-full right-4 top-full lg:block lg:static lg:bg-transparent lg:max-w-full lg:shadow-none lg:rounded-none dark:bg-slate-800">
+            <nav id="nav-menu" 
+                 class="hidden absolute py-5 bg-white shadow-lg rounded-lg max-w-[250px] w-full right-4 top-full 
+                        lg:block lg:static lg:bg-transparent lg:max-w-full lg:shadow-none lg:rounded-none 
+                        dark:bg-slate-800 dark:shadow-slate-700">
               <ul class="block lg:flex">
                 <li class="group">
                   <a href="#home" class="nav-link">Home</a>
@@ -50,9 +117,9 @@
                 </li>
                 <!-- Admin Login -->
                 <li class="group">
-                  <a href="#" id="adminLogin" class="nav-link">
+                  <button id="adminBtn" class="nav-link">
                     <i class="fas fa-lock mr-2"></i> Admin
-                  </a>
+                  </button>
                 </li>
               </ul>
             </nav>
@@ -63,93 +130,81 @@
     <!-- Header End -->
 
     <!-- Hero Section Start -->
-    <section id="home" class="pt-36 scroll-mt-20"> 
-      <div class="container">
-        <div class="flex flex-wrap">
-          <div class="w-full self-center px-4 lg:w-1/2">
-            <h1 class="text-base font-semibold text-teal-500 md:text-xl">
-              Hello internet 👋, i'm
-              <span class="block font-bold text-slate-300 text-4xl mt-1 lg:text-5xl "
-                >Dede Ichsan Revalino</span
-              >
-            </h1>
-            <h2 class="font-medium text-slate-500 text-lg mb-5 lg:text-2xl">
-              Student & <span class="text-slate-300">Junior Programmer</span>
-            </h2>
-            <p class="font-medium text-slate-400 mb-10 leading-relaxed">
-              This is the first time create
-              <span class="text-slate-300 font-semibold"
-                >fortopolio website</span
-              >
-            </p>
-            <a
-              href="#"
-              class="text-base font-semibold text-white bg-teal-500 py-3 px-8 rounded-full hover:shadow-lg hover:opacity-80 transition duration-300 ease-in-out"
-              >Hubungi saya</a
-            >
-          </div>
-          <div class="w-full self-end px-4 lg:w-1/2">
-            <div class="relative mt-10 lg:mt-9 lg:right-0">
-              <img
-                src="/Asset/foto.png"
-                alt="Dede Ichsan Revalino"
-                class="max-w-full mx-auto"/>
-
+    <section id="home" class="pt-20 pb-12 lg:pt-24 lg:pb-16">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap items-center">
+                <!-- Text Content -->
+                <div class="w-full lg:w-1/2 px-4">
+                    <h1 class="text-base font-semibold text-teal-500 md:text-xl">
+                        Hello internet 👋, i'm
+                        <span class="block font-bold text-slate-300 text-4xl mt-1 lg:text-5xl dark:text-slate-200">
+                            Dede Ichsan Revalino
+                        </span>
+                    </h1>
+                    <h2 class="font-medium text-slate-600 text-lg mb-4 lg:text-2xl dark:text-slate-400">
+                        Student & <span class="text-teal-500">Junior Programmer</span>
+                    </h2>
+                    <p class="font-medium text-slate-300 mb-8 leading-relaxed max-w-md dark:text-slate-400">
+                        Passionate about creating beautiful and functional web experiences. 
+                        Let's build something amazing together!
+                    </p>
+                    <a href="https://wa.me/6289514656979" 
+                       target="_blank"
+                       class="inline-block px-8 py-3 text-base font-semibold text-white bg-teal-500 
+                              rounded-full hover:shadow-lg hover:opacity-80 transition duration-300">
+                        <i class="fab fa-whatsapp mr-2"></i>Contact Me
+                    </a>
+                </div>
+                
+                <!-- Image with better positioning -->
+                <div class="w-full lg:w-1/2 px-4 mt-10 lg:mt-0">
+                    <div class="relative  mt-10 lg:mt-9 lg:right-0">
+                        <div class="aspect-[4/5] relative z-10">
+                            <img src="/Asset/foto.png" 
+                                 alt="Dede Ichsan Revalino" 
+                                 class="w-full h-full object-cover rounded-2xl shadow-lg"/>
+                        </div>
+                        <div class="absolute -bottom-4 left-1/2 -translate-x-1/2 w-4/5 h-4/5 
+                                    bg-teal-500/10 rounded-full blur-2xl dark:bg-teal-500/20"></div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </section>
     <!-- Hero Section End -->
 
     <!-- About Section Start -->
     <section id="about" class="pt-36 pb-32 dark:bg-slate-800 scroll-mt-20">
-      <div class="container">
-        <div class="flex flex-wrap">
-          <div class="w-full px-4 mb-10 lg:w-1/2">
-            <h4 class="font-bold uppercase text-teal-500 text-lg mb-3">About Me</h4>
-            <h2 class="font-bold text-slate-900 text-3xl mb-5 max-w-md lg:text-4xl dark:text-white">
-              Junior Web Developer & Student
-            </h2>
-            <p class="font-medium text-base text-slate-500 max-w-xl lg:text-lg">
-              I am passionate about creating beautiful and functional web experiences. Currently focusing on full-stack web development
-              and constantly learning new technologies.
-            </p>
-          </div>
-          <div class="w-full px-4 lg:w-1/2">
-            <h3 class="font-semibold text-slate-900 text-2xl mb-4 lg:text-3xl lg:pt-10 dark:text-white">Let's Connect</h3>
-            <p class="font-medium text-base text-slate-500 mb-6 lg:text-lg">
-              Follow my social media and let's create something amazing together!
-            </p>
-            <div class="flex items-center justify-center lg:justify-start space-x-4">
-              <!-- Social Media Icons dengan hover effect yang lebih baik -->
-              <a href="https://github.com/yourusername" target="_blank" 
-                 class="w-10 h-10 rounded-full flex justify-center items-center border-2 border-slate-300 hover:border-accent-blue hover:bg-accent-blue hover:text-white text-slate-300 transition-all duration-300">
-                <i class="fab fa-github text-xl"></i>
-              </a>
-              <a href="https://linkedin.com/in/yourusername" target="_blank"
-                 class="w-10 h-10 rounded-full flex justify-center items-center border-2 border-slate-300 hover:border-accent-blue hover:bg-accent-blue hover:text-white text-slate-300 transition-all duration-300">
-                <i class="fab fa-linkedin-in text-xl"></i>
-              </a>
-              <a href="https://instagram.com/yourusername" target="_blank"
-                 class="w-10 h-10 rounded-full flex justify-center items-center border-2 border-slate-300 hover:border-accent-blue hover:bg-accent-blue hover:text-white text-slate-300 transition-all duration-300">
-                <i class="fab fa-instagram text-xl"></i>
-              </a>
-              <a href="mailto:Dedeichsan.r@gmail.com"
-                 class="w-10 h-10 rounded-full flex justify-center items-center border-2 border-slate-300 hover:border-accent-blue hover:bg-accent-blue hover:text-white text-slate-300 transition-all duration-300">
-                <i class="fas fa-envelope text-xl"></i>
-              </a>
+        <div class="container">
+          <div class="flex flex-wrap">
+            <div class="w-full px-4 mb-10 lg:w-1/2">
+              <h4 class="font-bold uppercase text-teal-500 text-lg mb-3">About Me</h4>
+              <h2 class="font-bold text-slate-900 text-3xl mb-5 max-w-md lg:text-4xl dark:text-white">
+                Student & Junior programming
+              </h2>
+              <p class="font-medium text-base text-slate-500 max-w-xl lg:text-lg">
+                i`m a student junior web developer and student based in Indonesia. 
+                I love creating beautiful and functional websites that provide great user experiences.
+              </p>
+            </div>
+            <div class="w-full px-4 lg:w-1/2">
+              <h3 class="font-semibold text-slate-900 text-2xl mb-4 lg:text-3xl lg:pt-10 dark:text-white">Activity</h3>
+              <p class="font-medium text-base text-slate-500 mb-6 lg:text-lg">
+                Currently, I'm focused on expanding my knowledge in both frontend and backend development. 
+                I enjoy learning new technologies and applying them to solve real-world problems.
+              </p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
     <!-- About Section End -->
 
     <!-- Portfolio Section Start -->
     <section id="portfolio" class="pt-36 pb-32 bg-slate-100 dark:bg-slate-900 scroll-mt-20">
-      <div class="container">
-        <div class="w-full px-4">
+      <div class="container mx-auto px-4">
+        <div class="w-full">
+          <!-- Title -->
           <div class="max-w-xl mx-auto text-center mb-16">
             <h4 class="font-semibold text-lg text-teal-500 mb-2">Portfolio</h4>
             <h2 class="font-bold text-slate-900 text-3xl mb-4 dark:text-white">Latest Projects</h2>
@@ -157,11 +212,12 @@
               Here are some of my recent works and projects that showcase my skills and experience.
             </p>
           </div>
-        </div>
 
-        <div class="w-full px-4">
-          <div class="flex flex-wrap justify-center" id="portfolioProjects">
-            <!-- Projects will be loaded here from admin dashboard data -->
+          <!-- Projects Container -->
+          <div class="w-full">
+            <div class="flex flex-wrap justify-center gap-6" id="portfolioProjects">
+              <!-- Project cards will be dynamically added here -->
+            </div>
           </div>
         </div>
       </div>
@@ -169,405 +225,240 @@
     <!-- Portfolio Section End -->
 
     <!-- Skills Section Start -->
-    <section id="skills" class="pt-36 pb-32 dark:bg-slate-800 scroll-mt-20">
-      <div class="container">
-        <div class="w-full px-4">
-          <div class="mx-auto text-center mb-16">
-            <h4 class="font-semibold text-lg text-teal-500 mb-2">Skills</h4>
-            <h2 class="font-bold text-slate-900 text-3xl mb-4 dark:text-white">Technical Skills</h2>
-            <p class="font-medium text-md text-slate-500">Technologies and tools I work with</p>
-          </div>
-        </div>
+    <section id="skills" class="py-24 bg-slate-50 dark:bg-slate-800">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h4 class="font-bold uppercase text-teal-500 text-lg mb-3 text-center">My Skills</h4>
+                <h2 class="font-bold text-slate-800 text-3xl mb-12 dark:text-white text-center">
+                    Technical Skills
+                </h2>
+                
+                <!-- Skills Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Frontend Skills -->
+                    <div class="bg-white rounded-xl shadow-lg p-8 dark:bg-slate-700 transform hover:-translate-y-1 transition-transform duration-300">
+                        <div class="text-teal-500 mb-4 text-3xl">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3 class="font-bold text-xl mb-3 text-slate-800 dark:text-white">Frontend</h3>
+                        <p class="text-slate-600 dark:text-slate-300">HTML, CSS, JavaScript, React</p>
+                    </div>
 
-        <div class="w-full px-4">
-          <div class="flex flex-wrap justify-center gap-8">
-            <!-- Frontend Skills -->
-            <div class="w-full md:w-1/3 bg-white rounded-xl shadow-lg p-6 dark:bg-slate-700">
-              <h3 class="font-semibold text-xl text-teal-500 mb-4">Frontend</h3>
-              <div class="space-y-4">
-                <div class="skill-item">
-                  <div class="flex justify-between mb-1">
-                    <span class="text-slate-700 dark:text-white">HTML & CSS</span>
-                    <span class="text-teal-500">90%</span>
-                  </div>
-                  <div class="w-full bg-slate-200 rounded-full h-2">
-                    <div class="bg-teal-500 h-2 rounded-full" style="width: 90%"></div>
-                  </div>
-                </div>
-                <div class="skill-item">
-                  <div class="flex justify-between mb-1">
-                    <span class="text-slate-700 dark:text-white">JavaScript</span>
-                    <span class="text-teal-500">85%</span>
-                  </div>
-                  <div class="w-full bg-slate-200 rounded-full h-2">
-                    <div class="bg-teal-500 h-2 rounded-full" style="width: 85%"></div>
-                  </div>
-                </div>
-                <!-- Add more frontend skills -->
-              </div>
-            </div>
+                    <!-- Backend Skills -->
+                    <div class="bg-white rounded-xl shadow-lg p-8 dark:bg-slate-700 transform hover:-translate-y-1 transition-transform duration-300">
+                        <div class="text-teal-500 mb-4 text-3xl">
+                            <i class="fas fa-server"></i>
+                        </div>
+                        <h3 class="font-bold text-xl mb-3 text-slate-800 dark:text-white">Backend</h3>
+                        <p class="text-slate-600 dark:text-slate-300">Node.js, PHP, MySQL</p>
+                    </div>
 
-            <!-- Backend Skills -->
-            <div class="w-full md:w-1/3 bg-white rounded-xl shadow-lg p-6 dark:bg-slate-700">
-              <h3 class="font-semibold text-xl text-teal-500 mb-4">Backend</h3>
-              <div class="space-y-4">
-                <div class="skill-item">
-                  <div class="flex justify-between mb-1">
-                    <span class="text-slate-700 dark:text-white">Node.js</span>
-                    <span class="text-teal-500">80%</span>
-                  </div>
-                  <div class="w-full bg-slate-200 rounded-full h-2">
-                    <div class="bg-teal-500 h-2 rounded-full" style="width: 80%"></div>
-                  </div>
+                    <!-- Tools -->
+                    <div class="bg-white rounded-xl shadow-lg p-8 dark:bg-slate-700 transform hover:-translate-y-1 transition-transform duration-300">
+                        <div class="text-teal-500 mb-4 text-3xl">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <h3 class="font-bold text-xl mb-3 text-slate-800 dark:text-white">Tools</h3>
+                        <p class="text-slate-600 dark:text-slate-300">Git, VS Code, Vite, Xampp, Laragon</p>
+                    </div>
                 </div>
-                <div class="skill-item">
-                  <div class="flex justify-between mb-1">
-                    <span class="text-slate-700 dark:text-white">PHP</span>
-                    <span class="text-teal-500">75%</span>
-                  </div>
-                  <div class="w-full bg-slate-200 rounded-full h-2">
-                    <div class="bg-teal-500 h-2 rounded-full" style="width: 75%"></div>
-                  </div>
-                </div>
-                <!-- Add more backend skills -->
-              </div>
             </div>
-          </div>
         </div>
-      </div>
     </section>
     <!-- Skills Section End -->
 
-    <!-- Contact Section Start -->
-    <section id="contact" class="pt-36 pb-32 dark:bg-slate-900 scroll-mt-20">
-      <div class="container">
-        <div class="w-full px-4">
-          <div class="max-w-xl mx-auto text-center mb-16">
-            <h4 class="font-semibold text-lg text-teal-500 mb-2">Contact</h4>
-            <h2 class="font-bold text-slate-900 text-3xl mb-4 dark:text-white">Get In Touch</h2>
-            <p class="font-medium text-md text-slate-500">
-              Feel free to reach out for collaborations or just a friendly hello
-            </p>
-          </div>
+    <!-- Divider dengan spacing yang lebih besar -->
+    <div class="h-32 bg-slate-100 dark:bg-slate-900"></div>
+
+    <!-- Contact Section dengan padding yang disesuaikan -->
+    <section id="contact" class="py-32 bg-white dark:bg-slate-800">
+        <div class="container mx-auto px-4">
+            <div class="max-w-xl mx-auto">
+                <div class="text-center mb-16">
+                    <h4 class="font-bold uppercase text-teal-500 text-lg mb-3">Contact</h4>
+                    <h2 class="font-bold text-slate-800 text-3xl mb-6 dark:text-white">Get In Touch</h2>
+                    <p class="text-slate-600 dark:text-slate-300">Feel free to reach out for collaborations or just a friendly hello</p>
+                </div>
+
+                <div class="bg-slate-50 dark:bg-slate-700 rounded-xl shadow-lg p-8 mb-16">
+                    <form class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+                                Name
+                            </label>
+                            <input type="text" 
+                                   class="w-full px-3 py-2 rounded-lg border border-slate-300 
+                                          focus:ring-2 focus:ring-teal-500 focus:border-teal-500 
+                                          dark:bg-slate-600 dark:border-slate-500 dark:text-white"
+                                   required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+                                Email
+                            </label>
+                            <input type="email" 
+                                   class="w-full px-3 py-2 rounded-lg border border-slate-300 
+                                          focus:ring-2 focus:ring-teal-500 focus:border-teal-500 
+                                          dark:bg-slate-600 dark:border-slate-500 dark:text-white"
+                                   required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+                                Message
+                            </label>
+                            <textarea rows="4" 
+                                      class="w-full px-3 py-2 rounded-lg border border-slate-300 
+                                             focus:ring-2 focus:ring-teal-500 focus:border-teal-500 
+                                             dark:bg-slate-600 dark:border-slate-500 dark:text-white"
+                                      required></textarea>
+                        </div>
+                        <button type="submit"
+                                class="w-full bg-teal-500 text-white py-2 px-4 rounded-lg 
+                                       hover:bg-teal-600 transition duration-300">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
         </div>
-
-        <form class="w-full lg:w-2/3 mx-auto">
-          <div class="w-full px-4 mb-8">
-            <label for="name" class="text-base font-bold text-teal-500">Name</label>
-            <input type="text" id="name" 
-                   class="w-full bg-slate-200 text-slate-900 p-3 rounded-md focus:outline-none focus:ring-teal-500 focus:ring-1 focus:border-teal-500"
-                   />
-          </div>
-          <div class="w-full px-4 mb-8">
-            <label for="email" class="text-base font-bold text-teal-500">Email</label>
-            <input type="email" id="email" 
-                   class="w-full bg-slate-200 text-slate-900 p-3 rounded-md focus:outline-none focus:ring-teal-500 focus:ring-1 focus:border-teal-500"
-                   />
-          </div>
-          <div class="w-full px-4 mb-8">
-            <label for="message" class="text-base font-bold text-teal-500">Message</label>
-            <textarea id="message" 
-                      class="w-full bg-slate-200 text-slate-900 p-3 rounded-md focus:outline-none focus:ring-teal-500 focus:ring-1 focus:border-teal-500 h-32"></textarea>
-          </div>
-          <div class="w-full px-4">
-            <button class="text-base font-semibold text-white bg-teal-500 py-3 px-8 rounded-full w-full hover:opacity-80 hover:shadow-lg transition duration-500">
-              Send Message
-            </button>
-          </div>
-        </form>
-      </div>
     </section>
-    <!-- Contact Section End -->
 
+    <!-- Divider with gradient -->
+    
     <!-- Footer Start -->
     <footer class="bg-slate-800 pt-24 pb-12">
-      <div class="container">
-        <div class="flex flex-wrap">
-          <div class="w-full px-4 mb-12 text-slate-300 font-medium md:w-1/3">
-            <h2 class="font-bold text-4xl text-white mb-5">Dede Ichsan</h2>
-            <h3 class="font-bold text-2xl mb-2">Contact Me</h3>
-            <p class="flex items-center mb-2">
-              <i class="fas fa-envelope mr-2"></i>
-              <a href="mailto:Dedeichsan.r@gmail.com" class="hover:text-accent-blue transition-colors">
-                Dedeichsan.r@gmail.com
-              </a>
-            </p>
-            <p class="flex items-center mb-2">
-              <i class="fas fa-map-marker-alt mr-2"></i>
-              Bandung, Indonesia
-            </p>
-          </div>
-          
-          <!-- About Me di Footer -->
-          <div class="w-full px-4 mb-12 md:w-1/3">
-            <h3 class="font-semibold text-xl text-white mb-5">About Me</h3>
-            <p class="text-slate-300 leading-relaxed">
-              Saya adalah seorang mahasiswa yang passionate dalam pengembangan web dan teknologi.
-              Saat ini sedang fokus mempelajari full-stack development dan selalu antusias untuk
-              belajar hal-hal baru dalam dunia programming.
-            </p>
-          </div>
+        <div class="container mx-auto">
+            <div class="flex flex-wrap justify-center">
+                <!-- Contact Info -->
+                <div class="w-full px-4 mb-12 text-slate-300 font-medium md:w-1/3">
+                    <h2 class="font-bold text-4xl text-white mb-5">Dede Ichsan</h2>
+                    <h3 class="font-bold text-2xl mb-2">Contact Me</h3>
+                    <p class="flex items-center mb-2">
+                        <i class="fas fa-envelope mr-2"></i>
+                        <a href="mailto:Dedeichsan.r@gmail.com" class="hover:text-accent-blue transition-colors">
+                            Dedeichsan.r@gmail.com
+                        </a>
+                    </p>
+                    <p class="flex items-center mb-2">
+                        <i class="fas fa-map-marker-alt mr-2"></i>
+                        Surabaya, Indonesia
+                    </p>
+                </div>
+                
+                <!-- About Me -->
+                <div class="w-full px-4 mb-12 md:w-1/3">
+                    <h3 class="font-semibold text-xl text-white mb-5">About Me</h3>
+                    <p class="text-slate-300 leading-relaxed">
+                        I am a student who is passionate about web development and technology. Currently focusing on learning
+                         full-stack development and always enthusiastic to learn new things in the world of programming.
+                    </p>
+                </div>
 
-          <!-- Quick Links -->
-          <div class="w-full px-4 mb-12 md:w-1/3">
-            <h3 class="font-semibold text-xl text-white mb-5">Quick Links</h3>
-            <ul class="text-slate-300">
-              <li>
-                <a href="#home" class="inline-block text-base hover:text-accent-blue mb-3">
-                  <i class="fas fa-chevron-right mr-2"></i>Home
-                </a>
-              </li>
-              <li>
-                <a href="#about" class="inline-block text-base hover:text-accent-blue mb-3">
-                  <i class="fas fa-chevron-right mr-2"></i>About
-                </a>
-              </li>
-              <li>
-                <a href="#portfolio" class="inline-block text-base hover:text-accent-blue mb-3">
-                  <i class="fas fa-chevron-right mr-2"></i>Portfolio
-                </a>
-              </li>
-              <li>
-                <a href="#skills" class="inline-block text-base hover:text-accent-blue mb-3">
-                  <i class="fas fa-chevron-right mr-2"></i>Skills
-                </a>
-              </li>
-              <li>
-                <a href="#contact" class="inline-block text-base hover:text-accent-blue mb-3">
-                  <i class="fas fa-chevron-right mr-2"></i>Contact
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
+                <!-- Quick Links -->
+                <div class="w-full px-4 mb-12 md:w-1/3">
+                    <h3 class="font-semibold text-xl text-white mb-5">Quick Links</h3>
+                    <ul class="text-slate-300">
+                        <li>
+                            <a href="#home" class="inline-block text-base hover:text-accent-blue mb-3">
+                                <i class="fas fa-chevron-right mr-2"></i>Home
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#about" class="inline-block text-base hover:text-accent-blue mb-3">
+                                <i class="fas fa-chevron-right mr-2"></i>About
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#portfolio" class="inline-block text-base hover:text-accent-blue mb-3">
+                                <i class="fas fa-chevron-right mr-2"></i>Portfolio
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#skills" class="inline-block text-base hover:text-accent-blue mb-3">
+                                <i class="fas fa-chevron-right mr-2"></i>Skills
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#contact" class="inline-block text-base hover:text-accent-blue mb-3">
+                                <i class="fas fa-chevron-right mr-2"></i>Contact
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
 
-        <!-- Social Media di Footer -->
-        <div class="w-full pt-10 border-t border-slate-700">
-          <div class="flex items-center justify-center mb-5 space-x-6">
-            <a href="https://github.com/yourusername" target="_blank" 
-               class="w-10 h-10 rounded-full flex justify-center items-center border-2 border-slate-300 hover:border-accent-blue hover:bg-accent-blue hover:text-white text-slate-300 transition-all duration-300">
-              <i class="fab fa-github text-xl"></i>
-            </a>
-            <a href="https://linkedin.com/in/yourusername" target="_blank"
-               class="w-10 h-10 rounded-full flex justify-center items-center border-2 border-slate-300 hover:border-accent-blue hover:bg-accent-blue hover:text-white text-slate-300 transition-all duration-300">
-              <i class="fab fa-linkedin-in text-xl"></i>
-            </a>
-            <a href="https://instagram.com/yourusername" target="_blank"
-               class="w-10 h-10 rounded-full flex justify-center items-center border-2 border-slate-300 hover:border-accent-blue hover:bg-accent-blue hover:text-white text-slate-300 transition-all duration-300">
-              <i class="fab fa-instagram text-xl"></i>
-            </a>
-            <a href="mailto:Dedeichsan.r@gmail.com"
-               class="w-10 h-10 rounded-full flex justify-center items-center border-2 border-slate-300 hover:border-accent-blue hover:bg-accent-blue hover:text-white text-slate-300 transition-all duration-300">
-              <i class="fas fa-envelope text-xl"></i>
-            </a>
-          </div>
-          <p class="font-medium text-sm text-slate-500 text-center">
-            Created with ❤️ by <a href="#" class="font-bold text-accent-blue">Dede Ichsan</a>
-            <span class="block mt-2">Copyright © 2024. All rights reserved.</span>
-          </p>
+            <!-- Social Media & Copyright -->
+            <div class="w-full pt-10 border-t border-slate-700">
+                <div class="flex items-center justify-center mb-5 space-x-6">
+                    <a href="https://github.com/Ryouta-Lino" target="_blank" 
+                       class="w-10 h-10 rounded-full flex justify-center items-center border-2 border-slate-300 hover:border-accent-blue hover:bg-accent-blue hover:text-white text-slate-300 transition-all duration-300">
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+                    <a href="https://linkedin.com/in/yourusername" target="_blank"
+                       class="w-10 h-10 rounded-full flex justify-center items-center border-2 border-slate-300 hover:border-accent-blue hover:bg-accent-blue hover:text-white text-slate-300 transition-all duration-300">
+                        <i class="fab fa-linkedin-in text-xl"></i>
+                    </a>
+                    <a href="https://instagram.com/yourusername" target="_blank"
+                       class="w-10 h-10 rounded-full flex justify-center items-center border-2 border-slate-300 hover:border-accent-blue hover:bg-accent-blue hover:text-white text-slate-300 transition-all duration-300">
+                        <i class="fab fa-instagram text-xl"></i>
+                    </a>
+                    <a href="mailto:Dedeichsan.r@gmail.com"
+                       class="w-10 h-10 rounded-full flex justify-center items-center border-2 border-slate-300 hover:border-accent-blue hover:bg-accent-blue hover:text-white text-slate-300 transition-all duration-300">
+                        <i class="fas fa-envelope text-xl"></i>
+                    </a>
+                </div>
+                <p class="font-medium text-sm text-slate-500 text-center">
+                    Created with ❤️ by <a href="#" class="font-bold text-accent-blue">Dede Ichsan</a>
+                    <span class="block mt-2">Copyright © 2024. All rights reserved.</span>
+                </p>
+            </div>
         </div>
-      </div>
     </footer>
     <!-- Footer End -->
 
     <!-- Admin Login Modal -->
     <div id="adminModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
-      <div class="bg-white dark:bg-slate-800 p-8 rounded-lg w-96">
-        <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Admin Login</h2>
-        <form id="adminForm" class="space-y-4">
-          <div>
-            <label class="block text-slate-700 dark:text-slate-300 mb-2">Username</label>
-            <input type="text" id="username" class="w-full px-4 py-2 rounded-lg border dark:bg-slate-700 dark:border-slate-600 dark:text-white" required>
-          </div>
-          <div>
-            <label class="block text-slate-700 dark:text-slate-300 mb-2">Password</label>
-            <input type="password" id="password" class="w-full px-4 py-2 rounded-lg border dark:bg-slate-700 dark:border-slate-600 dark:text-white" required>
-          </div>
-          <div class="flex justify-end space-x-4">
-            <button type="button" id="closeModal" class="px-4 py-2 text-slate-600 dark:text-slate-400">Cancel</button>
-            <button type="submit" class="px-4 py-2 bg-teal-500 text-white rounded-lg hover:bg-teal-600">Login</button>
-          </div>
-        </form>
-      </div>
-    </div>
-
-    <script>
-      // Dark mode toggle
-      const darkToggle = document.querySelector('#darkToggle');
-      const html = document.querySelector('html');
-
-      darkToggle.addEventListener('click', function() {
-        if (html.classList.contains('dark')) {
-          html.classList.remove('dark');
-          localStorage.theme = 'light';
-        } else {
-          html.classList.add('dark');
-          localStorage.theme = 'dark';
-        }
-      });
-
-      // On page load, check localStorage for theme preference
-      if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        html.classList.add('dark');
-      } else {
-        html.classList.remove('dark');
-      }
-
-      // Hamburger Menu
-      const hamburger = document.querySelector('#hamburger');
-      const navMenu = document.querySelector('#nav-menu');
-
-      hamburger.addEventListener('click', function() {
-        hamburger.classList.toggle('hamburger-active');
-        navMenu.classList.toggle('hidden');
-      });
-
-      // Admin Modal
-      const adminLogin = document.querySelector('#adminLogin');
-      const adminModal = document.querySelector('#adminModal');
-      const closeModal = document.querySelector('#closeModal');
-      const adminForm = document.querySelector('#adminForm');
-
-      adminLogin.addEventListener('click', function() {
-        adminModal.classList.remove('hidden');
-        adminModal.classList.add('flex');
-      });
-
-      closeModal.addEventListener('click', function() {
-        adminModal.classList.add('hidden');
-        adminModal.classList.remove('flex');
-      });
-
-      adminForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const username = document.querySelector('#username').value;
-        const password = document.querySelector('#password').value;
-
-        if (username === 'admin' && password === 'password') {
-          localStorage.setItem('adminLoggedIn', 'true');
-          alert('Login successful!');
-          window.location.href = './admin-dashboard.html';
-        } else {
-          alert('Invalid credentials');
-        }
-      });
-
-      // Close modal when clicking outside
-      adminModal.addEventListener('click', function(e) {
-        if (e.target === adminModal) {
-          adminModal.classList.add('hidden');
-          adminModal.classList.remove('flex');
-        }
-      });
-
-      // Load portfolio projects from localStorage
-      function loadPortfolioProjects() {
-        const projects = JSON.parse(localStorage.getItem('projects')) || [];
-        const portfolioContainer = document.querySelector('#portfolioProjects');
-        
-        portfolioContainer.innerHTML = projects.map(project => `
-          <div class="mb-12 p-4 md:w-1/2 lg:w-1/3">
-            <div class="rounded-md shadow-md overflow-hidden bg-white dark:bg-slate-700">
-              <img src="${project.image}" alt="${project.title}" class="w-full h-48 object-cover">
-              <div class="py-8 px-6">
-                <h3 class="mb-3 font-semibold text-xl text-slate-900 dark:text-white truncate">
-                  ${project.title}
-                </h3>
-                <p class="font-medium text-base text-slate-500 dark:text-slate-300 mb-4">
-                  ${project.description}
-                </p>
-                <p class="font-medium text-sm text-teal-500 mb-4">
-                  ${project.technologies}
-                </p>
-                ${project.url ? `
-                <a href="${project.url}" target="_blank" 
-                   class="font-medium text-sm text-white bg-teal-500 py-2 px-4 rounded-lg hover:opacity-80">
-                   View Project
-                </a>` : ''}
-              </div>
-            </div>
-          </div>
-        `).join('');
-      }
-
-      // Load projects when page loads
-      document.addEventListener('DOMContentLoaded', loadPortfolioProjects);
-
-      // Di bagian skills section
-      function loadSkills() {
-        const skills = JSON.parse(localStorage.getItem('skills')) || [];
-        const skillsContainer = document.querySelector('#skillsContainer');
-        
-        const categorizedSkills = {
-          frontend: skills.filter(s => s.category === 'frontend'),
-          backend: skills.filter(s => s.category === 'backend'),
-          tools: skills.filter(s => s.category === 'tools')
-        };
-        
-        Object.entries(categorizedSkills).forEach(([category, skills]) => {
-          if (skills.length > 0) {
-            const section = document.createElement('div');
-            section.innerHTML = `
-              <h3 class="text-xl font-bold mb-4 text-slate-900 dark:text-white capitalize">${category}</h3>
-              <div class="space-y-4">
-                ${skills.map(skill => `
-                  <div>
-                    <div class="flex justify-between mb-1">
-                      <span class="text-base font-medium text-slate-700 dark:text-white">${skill.name}</span>
-                      <span class="text-sm text-slate-500">${skill.proficiency}%</span>
-                    </div>
-                    <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                      <div class="bg-teal-500 h-2.5 rounded-full" style="width: ${skill.proficiency}%"></div>
-                    </div>
-                  </div>
-                `).join('')}
-              </div>
-            `;
-            skillsContainer.appendChild(section);
-          }
-        });
-      }
-
-      // Load skills when page loads
-      document.addEventListener('DOMContentLoaded', () => {
-        loadPortfolioProjects();
-        loadSkills();
-      });
-
-      // Smooth scroll function
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-          e.preventDefault();
-          const targetId = this.getAttribute('href');
-          const targetElement = document.querySelector(targetId);
-          
-          if (targetElement) {
-            // Close hamburger menu on mobile
-            if (window.innerWidth < 1024) { // lg breakpoint
-              hamburger.classList.remove('hamburger-active');
-              navMenu.classList.add('hidden');
-            }
-
-            // Calculate position to scroll
-            const offset = 80; // Adjust this value based on your header height
-            const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
+        <div class="bg-white dark:bg-slate-800 p-8 rounded-lg w-96 relative">
+            <button id="closeModal" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+                <i class="fas fa-times"></i>
+            </button>
             
-            window.scrollTo({
-              top: targetPosition,
-              behavior: 'smooth'
-            });
-          }
-        });
-      });
-
-      // Close hamburger menu when clicking outside
-      document.addEventListener('click', function(e) {
-        if (!navMenu.contains(e.target) && !hamburger.contains(e.target)) {
-          hamburger.classList.remove('hamburger-active');
-          navMenu.classList.add('hidden');
-        }
-      });
-    </script>
+            <h2 class="text-2xl font-bold text-slate-800 dark:text-white mb-6">Admin Login</h2>
+            
+            <form id="adminLoginForm" class="space-y-4">
+                <div>
+                    <label for="adminUsername" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+                        Username
+                    </label>
+                    <input 
+                        type="text" 
+                        id="adminUsername" 
+                        class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 dark:bg-slate-700 dark:border-slate-600 dark:text-white"
+                        required
+                    >
+                </div>
+                
+                <div>
+                    <label for="adminPassword" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+                        Password
+                    </label>
+                    <input 
+                        type="password" 
+                        id="adminPassword" 
+                        class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 dark:bg-slate-700 dark:border-slate-600 dark:text-white"
+                        required
+                    >
+                </div>
+                
+                <button 
+                    type="submit"
+                    class="w-full bg-teal-500 text-white py-2 px-4 rounded-lg hover:bg-teal-600 transition duration-300"
+                >
+                    Login
+                </button>
+            </form>
+        </div>
+    </div>
   </body>
 </html>
 

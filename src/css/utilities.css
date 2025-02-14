@@ -1,0 +1,145 @@
+@layer utilities {
+  /* Container dan Section Spacing */
+  .section-padding {
+    @apply py-8 md:py-16; /* Reduced padding to match GitHub style */
+  }
+
+  .container {
+    @apply mx-auto px-4 sm:px-6 lg:px-8;
+    max-width: 1280px; /* GitHub's max width */
+  }
+
+  /* Spacing utilities */
+  .content-spacing {
+    @apply space-y-4 md:space-y-6; /* GitHub-like spacing */
+  }
+
+  .section-spacing {
+    @apply mb-8 md:mb-12; /* GitHub-like section spacing */
+  }
+
+  /* Card spacing */
+  .card-padding {
+    @apply p-4 md:p-6; /* GitHub card padding */
+  }
+
+  .card-spacing {
+    @apply space-y-3; /* GitHub card internal spacing */
+  }
+
+  /* Icon spacing */
+  .icon-spacing {
+    @apply w-8 h-8 md:w-10 md:h-10; /* GitHub icon sizes */
+  }
+
+  /* Text spacing */
+  .text-spacing {
+    @apply space-y-2; /* GitHub text spacing */
+  }
+
+  /* Button padding */
+  .button-padding {
+    @apply px-4 py-2 md:px-6 md:py-3; /* GitHub button padding */
+  }
+
+  /* List spacing */
+  .list-spacing {
+    @apply space-y-2; /* GitHub list spacing */
+  }
+
+  /* Grid gap */
+  .grid-gap {
+    @apply gap-4 md:gap-6; /* GitHub grid spacing */
+  }
+
+  /* Margin utilities */
+  .section-margin {
+    @apply my-8 md:my-12; /* GitHub section margins */
+  }
+
+  /* Border radius */
+  .github-rounded {
+    @apply rounded-md; /* GitHub's border radius */
+  }
+
+  /* Icon specific */
+  .favicon-icon {
+    @apply w-8 h-8; /* GitHub favicon size */
+    border-radius: 6px; /* GitHub's specific border radius */
+  }
+
+  /* Grid layout untuk desktop */
+  .grid-desktop {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* Flex container untuk desktop */
+  .flex-desktop {
+    @apply flex flex-wrap items-center justify-center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* Section container */
+  .section-container {
+    @apply w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Content wrapper */
+  .content-wrapper {
+    @apply max-w-6xl mx-auto;
+  }
+
+  /* Horizontal scroll untuk projects */
+  .flex-nowrap {
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+  }
+
+  .flex-nowrap::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+  }
+
+  /* Prevent image stretching */
+  .max-w-full {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Smooth scrolling for projects */
+  .snap-x {
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .snap-mandatory > * {
+    scroll-snap-align: start;
+  }
+
+  /* Hide scrollbar but keep functionality */
+  .hide-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Smooth scrolling utilities */
+  .scroll-margin {
+    scroll-margin-top: calc(var(--header-height) + 2rem);
+  }
+
+  /* Section positioning */
+  section {
+    scroll-margin-top: 80px; /* Sesuaikan dengan tinggi header */
+    min-height: calc(100vh - 80px); /* Minimal tinggi viewport dikurangi header */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+} 
