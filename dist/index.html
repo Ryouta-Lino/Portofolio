@@ -15,63 +15,6 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <title>Dede Ichsan Revalino | Portfolio</title>
-    <script src="/src/js/admin.js"></script>
-    <script type="module" src="/src/js/darkmode.js"></script>
-    <script type="module" src="/src/js/navigation.js"></script>
-    <script type="module" src="/src/js/portfolio.js"></script>
-    <script type="module" src="/src/js/adminDashboard.js"></script>
-    <script>
-        // Check if stylesheet loaded
-        window.onload = function() {
-            const styles = document.styleSheets;
-            let cssLoaded = false;
-            
-            for (const style of styles) {
-                if (style.href && style.href.includes('style.css')) {
-                    cssLoaded = true;
-                    break;
-                }
-            }
-            
-            if(!cssLoaded) {
-                console.error('CSS not loaded!');
-                alert('Warning: Stylesheet failed to load. Please check console for details.');
-            }
-        }
-
-        // Load projects on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            const portfolioContainer = document.querySelector('#portfolioProjects');
-            if (portfolioContainer) {
-                const projects = JSON.parse(localStorage.getItem('projects')) || [];
-                const activeProjects = projects.filter(p => p.status === 'active');
-                
-                portfolioContainer.innerHTML = activeProjects.map(project => `
-                    <div class="flex-none w-[280px] md:w-[320px] lg:w-[360px] p-4">
-                        <div class="rounded-md shadow-md overflow-hidden bg-white dark:bg-slate-700 h-full">
-                            <img src="${project.image}" alt="${project.title}" class="w-full h-48 object-cover">
-                            <div class="p-6">
-                                <h3 class="mb-3 font-semibold text-xl text-slate-900 dark:text-white truncate">
-                                    ${project.title}
-                                </h3>
-                                <p class="font-medium text-base text-slate-500 dark:text-slate-300 mb-4 line-clamp-3">
-                                    ${project.description}
-                                </p>
-                                <p class="font-medium text-sm text-teal-500 mb-4">
-                                    ${project.technologies}
-                                </p>
-                                ${project.url ? `
-                                <a href="${project.url}" target="_blank" 
-                                   class="inline-block font-medium text-sm text-white bg-teal-500 py-2 px-4 rounded-lg hover:opacity-80">
-                                   View Project
-                                </a>` : ''}
-                            </div>
-                        </div>
-                    </div>
-                `).join('');
-            }
-        });
-    </script>
   </head>
   <body class="dark:bg-slate-900 transition-colors duration-300">
     <!-- Header Start -->
@@ -281,12 +224,13 @@
                 </div>
 
                 <div class="bg-slate-50 dark:bg-slate-700 rounded-xl shadow-lg p-8 mb-16">
-                    <form class="space-y-4">
+                    <form id="contactForm" class="space-y-4">
                         <div>
                             <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
                                 Name
                             </label>
                             <input type="text" 
+                                   name="name"
                                    class="w-full px-3 py-2 rounded-lg border border-slate-300 
                                           focus:ring-2 focus:ring-teal-500 focus:border-teal-500 
                                           dark:bg-slate-600 dark:border-slate-500 dark:text-white"
@@ -297,6 +241,7 @@
                                 Email
                             </label>
                             <input type="email" 
+                                   name="email"
                                    class="w-full px-3 py-2 rounded-lg border border-slate-300 
                                           focus:ring-2 focus:ring-teal-500 focus:border-teal-500 
                                           dark:bg-slate-600 dark:border-slate-500 dark:text-white"
@@ -306,7 +251,8 @@
                             <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
                                 Message
                             </label>
-                            <textarea rows="4" 
+                            <textarea name="message"
+                                      rows="4"
                                       class="w-full px-3 py-2 rounded-lg border border-slate-300 
                                              focus:ring-2 focus:ring-teal-500 focus:border-teal-500 
                                              dark:bg-slate-600 dark:border-slate-500 dark:text-white"
@@ -459,6 +405,14 @@
             </form>
         </div>
     </div>
+
+    <!-- Scripts -->
+    <script src="/src/js/admin.js"></script>
+    <script type="module" src="/src/js/darkmode.js"></script>
+    <script type="module" src="/src/js/navigation.js"></script>
+    <script type="module" src="/src/js/portfolio.js"></script>
+    <script type="module" src="/src/js/adminDashboard.js"></script>
+    <script type="module" src="/src/js/contact.js"></script>
   </body>
 </html>
 

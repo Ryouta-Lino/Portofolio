@@ -2,16 +2,16 @@ import { defineConfig } from 'vite'
 import { resolve } from 'path'
 
 export default defineConfig({
-  root: './src',
+  root: './',
   base: './',
   build: {
-    outDir: '../dist',
+    outDir: 'dist',
     emptyOutDir: true,
   },
   publicDir: '../public',
   server: {
     open: true,
-    port: 5500,
+    port: 5173,
     strictPort: true,
     host: true
   },
