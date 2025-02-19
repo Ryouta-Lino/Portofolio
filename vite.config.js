@@ -2,22 +2,25 @@ import { defineConfig } from 'vite'
 import { resolve } from 'path'
 
 export default defineConfig({
-  root: './',
+  root: '.',
   base: './',
   build: {
     outDir: 'dist',
-    emptyOutDir: true,
+    assetsDir: 'assets',
+    rollupOptions: {
+      input: {
+        main: resolve(__dirname, 'index.html'),
+        admin: resolve(__dirname, 'dist/admin-dashboard.html')
+      }
+    }
   },
-  publicDir: '../public',
   server: {
-    open: true,
-    port: 5173,
-    strictPort: true,
-    host: true
+    port: 5500,
+    open: true
   },
   resolve: {
     alias: {
       '@': resolve(__dirname, './src')
     }
   }
-}) 
+})

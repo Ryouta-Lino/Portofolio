@@ -2,11 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Import custom CSS files */
-@import "./css/base.css";
-@import "./css/components.css";
-@import "./css/utilities.css";
-@import "./css/animations.css";
+/* Import custom CSS dengan path yang benar */
+@import "base.css";
+@import "components.css";
+@import "utilities.css";
+@import "animations.css";
 
 /* Pastikan urutan layer benar */
 @layer base {
