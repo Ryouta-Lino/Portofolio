@@ -58,10 +58,6 @@
                 <li class="group">
                   <a href="#contact" class="nav-link">Contact</a>
                 </li>
-                <!-- Admin Login -->
-                <li class="group">
-                  <button id="adminBtn" class="nav-link">
-                    <i class="fas fa-lock mr-2"></i> Admin
                   </button>
                 </li>
               </ul>
@@ -143,29 +139,178 @@
       </section>
     <!-- About Section End -->
 
-    <!-- Portfolio Section Start -->
-    <section id="portfolio" class="pt-36 pb-32 bg-slate-100 dark:bg-slate-900 scroll-mt-20">
-      <div class="container mx-auto px-4">
-        <div class="w-full">
-          <!-- Title -->
-          <div class="max-w-xl mx-auto text-center mb-16">
-            <h4 class="font-semibold text-lg text-teal-500 mb-2">Portfolio</h4>
-            <h2 class="font-bold text-slate-900 text-3xl mb-4 dark:text-white">Latest Projects</h2>
-            <p class="font-medium text-md text-slate-500">
-              Here are some of my recent works and projects that showcase my skills and experience.
-            </p>
-          </div>
 
-          <!-- Projects Container -->
-          <div class="w-full">
-            <div class="flex flex-wrap justify-center gap-6" id="portfolioProjects">
-              <!-- Project cards will be dynamically added here -->
+   <!-- Portfolio Section Start -->
+<section id="portfolio" class="pt-36 pb-16 bg-slate-100 dark:bg-slate-800">
+    <div class="container mx-auto px-4">
+        <div class="w-full">
+            <div class="max-w-xl mx-auto text-center mb-16">
+                <h2 class="font-bold text-slate-900 text-3xl mb-4 dark:text-white">Latest Projects</h2>
+                <p class="font-medium text-md text-slate-500 dark:text-slate-300">
+                    Check out my recent work
+                </p>
             </div>
-          </div>
         </div>
-      </div>
-    </section>
-    <!-- Portfolio Section End -->
+        
+        <!-- Project Grid Container -->
+        <div id="portfolioProjects" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto px-4">
+            <!-- Project Card -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden dark:bg-slate-700 transform hover:-translate-y-2 transition-transform duration-300">
+                <div class="aspect-video">
+                    <img src="/Asset/Atm Sederhana.png" 
+                         alt="ATM Sederhana" 
+                         class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="font-bold text-xl mb-2 text-slate-800 dark:text-white">ATM Sederhana</h3>
+                    <p class="text-slate-600 dark:text-slate-300 mb-4 line-clamp-3">
+                        Program ATM sederhana yang dibuat menggunakan bahasa C++ untuk project akhir kelas 10
+                    </p>
+                    <div class="mb-4">
+                        <h4 class="text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2">Technologies:</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 text-sm bg-teal-100 text-teal-600 rounded-full dark:bg-teal-900 dark:text-teal-300">C++</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between mt-6">
+                        <a href="https://github.com/Ryouta-Lino/Atm-Sederhana" 
+                           target="_blank" 
+                           class="flex items-center justify-center text-teal-500 hover:text-teal-600 dark:hover:text-teal-400">
+                            <i class="fab fa-github mr-2"></i>
+                            <span>Source Code</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+             <!-- Project Grid Container -->
+        <div id="portfolioProjects" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+            <!-- Project Card 2 -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden dark:bg-slate-700 transform hover:-translate-y-2 transition-transform duration-300">
+                <div class="aspect-video">
+                    <img src="/Asset/Web Mie Ayam.png" 
+                         alt="Web Mie Ayam" 
+                         class="w-full h-full object-cover">
+                </div>
+                <div class="p-6">
+                    <h3 class="font-bold text-xl mb-2 text-slate-800 dark:text-white">Web Mie Ayam</h3>
+                    <p class="text-slate-600 dark:text-slate-300 mb-4 line-clamp-3">
+                        membuat website Mie Ayam untuk persiapan UKK kelas 12
+                    </p>
+                    <div class="mb-4">
+                        <h4 class="text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2">Technologies:</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 text-sm bg-teal-100 text-teal-600 rounded-full dark:bg-teal-900 dark:text-teal-300">HTML</span>
+                            <span class="px-3 py-1 text-sm bg-teal-100 text-teal-600 rounded-full dark:bg-teal-900 dark:text-teal-300">CSS</span>
+                            <span class="px-3 py-1 text-sm bg-teal-100 text-teal-600 rounded-full dark:bg-teal-900 dark:text-teal-300">JavaScript</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between">
+                        <a href="#" 
+                           target="_blank" 
+                           class="flex items-center justify-center text-teal-500 hover:text-teal-600 dark:hover:text-teal-400">
+                            <i class="fas fa-external-link-alt mr-2"></i>
+                            <span>Live Demo</span>
+                        </a>
+                        <a href="https://github.com/Ryouta-Lino/desktop-tutorial" 
+                           target="_blank" 
+                           class="flex items-center justify-center text-teal-500 hover:text-teal-600 dark:hover:text-teal-400">
+                            <i class="fab fa-github mr-2"></i>
+                            <span>Source Code</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project Grid Container -->
+        <div id="portfolioProjects" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+            <!-- Project Card 3 -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden dark:bg-slate-700 transform hover:-translate-y-2 transition-transform duration-300">
+                <div class="aspect-video">
+                    <img src="/Asset/GameWeb.png" 
+                         alt="Web Mie Ayam" 
+                         class="w-full h-full object-cover">
+                </div>
+                <div class="p-6">
+                    <h3 class="font-bold text-xl mb-2 text-slate-800 dark:text-white">GameWeb</h3>
+                    <p class="text-slate-600 dark:text-slate-300 mb-4 line-clamp-3">
+                        Project membuat game sederhana yang bisa dimainkan di web menggunakan bahasa HTML, CSS, dan JavaScript
+                    </p>
+                    <div class="mb-4">
+                        <h4 class="text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2">Technologies:</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 text-sm bg-teal-100 text-teal-600 rounded-full dark:bg-teal-900 dark:text-teal-300">HTML</span>
+                            <span class="px-3 py-1 text-sm bg-teal-100 text-teal-600 rounded-full dark:bg-teal-900 dark:text-teal-300">CSS</span>
+                            <span class="px-3 py-1 text-sm bg-teal-100 text-teal-600 rounded-full dark:bg-teal-900 dark:text-teal-300">JavaScript</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between">
+                        <a href="#" 
+                           target="_blank" 
+                           class="flex items-center justify-center text-teal-500 hover:text-teal-600 dark:hover:text-teal-400">
+                            <i class="fas fa-external-link-alt mr-2"></i>
+                            <span>Live Demo</span>
+                        </a>
+                        <a href="https://github.com/Ryouta-Lino/GameWeb" 
+                           target="_blank" 
+                           class="flex items-center justify-center text-teal-500 hover:text-teal-600 dark:hover:text-teal-400">
+                            <i class="fab fa-github mr-2"></i>
+                            <span>Source Code</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project Grid Container -->
+        <div id="portfolioProjects" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+            <!-- Project Card 2 -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden dark:bg-slate-700 transform hover:-translate-y-2 transition-transform duration-300">
+                <div class="aspect-video">
+                    <img src="/Asset/Web Mie Ayam.png" 
+                         alt="Web Mie Ayam" 
+                         class="w-full h-full object-cover">
+                </div>
+                <div class="p-6">
+                    <h3 class="font-bold text-xl mb-2 text-slate-800 dark:text-white">Kasir Mie Ayam</h3>
+                    <p class="text-slate-600 dark:text-slate-300 mb-4 line-clamp-3">
+                        Program kasir sederhana yang saya disela sela pembelajaran dikelas
+                    </p>
+                    <div class="mb-4">
+                        <h4 class="text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2">Technologies:</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 text-sm bg-teal-100 text-teal-600 rounded-full dark:bg-teal-900 dark:text-teal-300">HTML</span>
+                            <span class="px-3 py-1 text-sm bg-teal-100 text-teal-600 rounded-full dark:bg-teal-900 dark:text-teal-300">CSS</span>
+                            <span class="px-3 py-1 text-sm bg-teal-100 text-teal-600 rounded-full dark:bg-teal-900 dark:text-teal-300">JavaScript</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between">
+                        <a href="#" 
+                           target="_blank" 
+                           class="flex items-center justify-center text-teal-500 hover:text-teal-600 dark:hover:text-teal-400">
+                            <i class="fas fa-external-link-alt mr-2"></i>
+                            <span>Live Demo</span>
+                        </a>
+                        <a href="https://github.com/Ryouta-Lino/Atm-Sederhana" 
+                           target="_blank" 
+                           class="flex items-center justify-center text-teal-500 hover:text-teal-600 dark:hover:text-teal-400">
+                            <i class="fab fa-github mr-2"></i>
+                            <span>Source Code</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
+        
+
+            <!-- Duplicate cards as needed -->
+            
+        </div>
+    </div>
+</section>
+<!-- Portfolio Section End -->
 
     <!-- Skills Section Start -->
     <section id="skills" class="py-24 bg-slate-50 dark:bg-slate-800">
