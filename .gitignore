@@ -1,2 +1,6 @@
 node_modules/
-dist/css/style.css 
+.babelrc
+test/contact.test.js
+test/darkMode.test.js
+test/navigation.test.js
+test/portofolio.test.js
