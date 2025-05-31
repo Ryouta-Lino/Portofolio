@@ -50,6 +50,12 @@ export default {
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
       },
+      aspectRatio: {
+        'auto': 'auto',
+        '1/1': '1 / 1',
+        '16/9': '16 / 9',
+        '4/3': '4 / 3',
+      },
     },
   },
   plugins: [],

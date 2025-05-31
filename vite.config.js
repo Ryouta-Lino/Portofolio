@@ -9,8 +9,7 @@ export default defineConfig({
     assetsDir: 'assets',
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'index.html'),
-        admin: resolve(__dirname, 'dist/admin-dashboard.html')
+        main: resolve(__dirname, 'index.html')
       }
     }
   },

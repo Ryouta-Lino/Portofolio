@@ -142,4 +142,35 @@
     flex-direction: column;
     justify-content: center;
   }
-} 
+
+  /* Tambahkan di dalam @layer utilities */
+  .project-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 max-w-6xl mx-auto; /* 1 kolom di mobile, 2 kolom di tablet dan desktop */
+  }
+
+  .project-card {
+    @apply bg-white rounded-lg shadow-md overflow-hidden dark:bg-slate-700 
+           transform hover:-translate-y-1 transition-transform duration-300
+           max-w-xs mx-auto; /* Mengurangi ukuran maksimum card */
+  }
+
+  .project-image {
+    @apply aspect-video relative overflow-hidden;
+  }
+
+  .project-content {
+    @apply p-4 flex flex-col h-full;
+  }
+
+  /* Responsive text sizes */
+  .project-title {
+    @apply text-lg sm:text-xl font-bold;
+  }
+
+  .project-description {
+    @apply text-sm text-slate-600 dark:text-slate-300;
+  }
+
+  .project-tech {
+    @apply text-xs font-medium;
+  }

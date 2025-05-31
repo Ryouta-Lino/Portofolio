@@ -6,7 +6,6 @@ import { initDarkMode } from './modules/darkMode.js';
 import { initNavigation } from './modules/navigation.js';
 import { initHamburgerMenu } from './modules/hamburger.js';
 import { PortfolioManager } from './modules/portfolio.js';
-import './admin.js';  // Add this line
 
 // Initialize all modules
 document.addEventListener('DOMContentLoaded', () => {
