@@ -4,3 +4,4 @@ test/contact.test.js
 test/darkMode.test.js
 test/navigation.test.js
 test/portofolio.test.js
+.vscode
